@@ -42,7 +42,7 @@ end
 function kickGuest()
 	local data
 	local new_guests = {}
-	local to_remove = nil
+	local to_remove = false
 	
 	fileWriter("", file)
 
@@ -54,14 +54,14 @@ function kickGuest()
 	for i=1, cont do
 		if (guests[i].Cpf == cpf) then
             data = {Name=guests[i].Name, Cpf=guests[i].Cpf, Reason=reason}
-			to_remove = guests[i]
+			to_remove = true
         else 
 			table.insert(new_guests, guests[i])
 			toJson(guests[i], file)
         end
 	end
 	
-	if to_remove ~= nil then
+	if to_remove == true then
 		guests = new_guests
 		toJson(data, kicked)
 		cont = cont - 1
